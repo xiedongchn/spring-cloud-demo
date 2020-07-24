@@ -59,15 +59,15 @@ configure(subprojects) { subProject ->
             //直接将环境包目录下的文件打包到resources根目录下
             resources {
                 //所有的环境文件夹
-                String[] envDirs = "dev,pro".split(",")
-                //String[] envDirs = envdirs.split("," as Closure)
+                String[] dirs = "dev,pro".split(",")
+                //String[] dirs = envDirs.split("," as Closure)
 
                 srcDir "src/main/resources/${env}"
                 println "Current environment [${env}] by ${project.name}. "
 
                 sourceSets.main.resources.srcDirs.each {
                     it.listFiles().each {
-                        if (it.isDirectory() && envDirs.contains(it.name)) {
+                        if (it.isDirectory() && dirs.contains(it.name)) {
                             exclude "${it.name}"
                         }
                     }

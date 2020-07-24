@@ -19,23 +19,60 @@ allprojects {
     group = 'com.xd'
     version '1.0-SNAPSHOT'
     apply plugin: 'idea'
-}
-
-//子模块/项目的统一配置
-subprojects {
     apply plugin: 'java'
     // 指定JDK版本
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
     // 指定编码格式
     [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+}
+
+//容器模块名字
+def holderProjects = Arrays.asList('model')
+def gradleDir = "${rootProject.rootDir}/gradle"
+
+//子模块/项目的统一配置
+configure(subprojects) { subProject ->
     repositories {
         mavenLocal()
         mavenCentral()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
     }
-    ext {//依赖版本
-        springBootVersion = "2.2.6.RELEASE"
+
+    task allTask {
+        println project.name
+    }
+
+    if(!holderProjects.contains(subProject.name)) {
+        ext {//依赖版本
+            springBootVersion = "2.2.6.RELEASE"
+        }
+        task wrapper(type: Wrapper) {
+            gradleVersion = '6.3'
+        }
+    }
+
+    //指定编译的目录
+    sourceSets {
+        main {
+            //直接将环境包目录下的文件打包到resources根目录下
+            resources {
+                //所有的环境文件夹
+                String[] envDirs = "dev,pro".split(",")
+                //String[] envDirs = envdirs.split("," as Closure)
+
+                srcDir "src/main/resources/${env}"
+                println "Current environment [${env}] by ${project.name}. "
+
+                sourceSets.main.resources.srcDirs.each {
+                    it.listFiles().each {
+                        if (it.isDirectory() && envDirs.contains(it.name)) {
+                            exclude "${it.name}"
+                        }
+                    }
+                }
+            }
+        }
     }
 }

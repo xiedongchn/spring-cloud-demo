@@ -30,6 +30,7 @@ application.pid
 
 ## gradle files
 .gradle/
+/.gradle/
 build/
 
 ### NetBeans ###
@@ -68,3 +69,5 @@ proguard/
 captures/
 # Keystore files
 *.jks
+
+!/gradle

@@ -1,0 +1,41 @@
+buildscript {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+/*repositories {
+    mavenLocal()
+    mavenCentral()
+}*/
+
+//所有项目模块的通用配置
+allprojects {
+    group = 'com.xd'
+    version '1.0-SNAPSHOT'
+    apply plugin: 'idea'
+}
+
+//子模块/项目的统一配置
+subprojects {
+    apply plugin: 'java'
+    // 指定JDK版本
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    // 指定编码格式
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+    }
+    ext {//依赖版本
+        springBootVersion = "2.2.6.RELEASE"
+    }
+}

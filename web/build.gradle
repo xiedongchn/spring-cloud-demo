@@ -1,0 +1,45 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.1.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+ext {
+    set('springCloudVersion', "Hoxton.SR6")
+}
+
+dependencies {
+    //依赖model
+    compile project(":model")
+    //配置该项目特有的依赖
+    implementation 'org.springframework.cloud:spring-cloud-config-server'
+    implementation 'org.springframework.cloud:spring-cloud-starter'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-zookeeper-config'
+
+    compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    // Log4j2
+    compile("org.springframework.boot:spring-boot-starter-log4j2:$springBootVersion")
+
+    // 单元测试
+    testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    testCompile("junit:junit:4.12")
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    configurations {
+        //移除spring boot 默认logger依赖
+        all*.exclude module: 'spring-boot-starter-logging'
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}

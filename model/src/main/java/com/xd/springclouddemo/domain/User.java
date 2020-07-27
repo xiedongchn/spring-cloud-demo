@@ -1,4 +1,4 @@
-package domain;
+package com.xd.springclouddemo.domain;
 
 import java.io.Serializable;
 

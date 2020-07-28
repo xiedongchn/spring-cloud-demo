@@ -1,9 +1,14 @@
+//gradle编译时加上参数[--warning-mode all]，可查看配置文件中可能存在的问题以及可能在将来被废弃的语法，
+//例如gradle7.0中建议用implementation替代compile，用testImplementation替代testCompile
+
+/*
 buildscript {
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
     }
 }
+*/
 
 plugins {
     id 'java'
@@ -36,8 +41,8 @@ configure(subprojects) { subProject ->
     repositories {
         mavenLocal()
         mavenCentral()
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
     }
 
     task allTask {

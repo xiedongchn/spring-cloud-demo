@@ -1,5 +1,5 @@
 rootProject.name = "spring-cloud-demo"
-include("web", "model")
+include("web", "model", "config-server")
 
 if (!JavaVersion.current().java8Compatible) {
     throw new GradleException("Gradle must be run with Java 8")

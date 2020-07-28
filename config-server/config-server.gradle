@@ -1,0 +1,23 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //依赖model
+    implementation project(":model")
+    //配置该项目特有的依赖
+    implementation 'org.springframework.cloud:spring-cloud-config-server'
+    implementation 'org.springframework.cloud:spring-cloud-starter'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-zookeeper-config'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
+
+    implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    // Log4j2
+    implementation("org.springframework.boot:spring-boot-starter-log4j2:$springBootVersion")
+    implementation("org.springframework.cloud:spring-cloud-starter-eureka-server:$springBootVersion")
+
+    testImplementation group: 'junit', name: 'junit', version: '4.11'
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}

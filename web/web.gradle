@@ -9,7 +9,9 @@ ext {
 
 dependencies {
     //依赖model
-    compile project(":model")
+    //gradle之后compile将被废弃，官方建议使用implementation代替
+    //compile project(":model")
+    implementation project(":model")
     //配置该项目特有的依赖
     implementation 'org.springframework.cloud:spring-cloud-config-server'
     implementation 'org.springframework.cloud:spring-cloud-starter'
@@ -17,13 +19,15 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-zookeeper-config'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-    compile("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
+    implementation("org.springframework.boot:spring-boot-starter-web:$springBootVersion")
     // Log4j2
-    compile("org.springframework.boot:spring-boot-starter-log4j2:$springBootVersion")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2:$springBootVersion")
 
     // 单元测试
-    testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
-    testCompile("junit:junit:4.12")
+    //gradle之后testCompile将被废弃，官方建议使用testImplementation代替
+    //testCompile("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:$springBootVersion")
+    testImplementation("junit:junit:4.12")
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

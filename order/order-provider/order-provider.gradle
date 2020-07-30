@@ -11,10 +11,12 @@ dependencyManagement {
 
 dependencies {
     implementation(
-        project(":order-api"),
-        libraries.'spring-cloud-starter',
-        libraries.'spring-cloud-starter-config',
-        libraries.'spring-cloud-starter-netflix-eureka-client'
+            project(":order-api"),
+            libraries.'spring-cloud-starter',
+            libraries.'spring-cloud-starter-config',
+            libraries.'spring-cloud-starter-netflix-eureka-client',
+            libraries.'spring-boot-starter-log4j2',
+            libraries.'spring-boot-starter-actuator',
     )
     /*在dependency.gradle中已移除
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

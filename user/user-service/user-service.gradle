@@ -15,12 +15,11 @@ dependencies {
             libraries.'spring-cloud-config-starter',
             libraries.'spring-cloud-starter',
             libraries.'spring-cloud-starter-config',
-            libraries.'spring-cloud-config-starter-zookeeper-config',
-            libraries.'spring-cloud-starter-eureka-server',
-            //spring boot
-            libraries.'spring-boot-starter-actuator',
+            libraries.'spring-cloud-starter-netflix-eureka-client',
             libraries.'spring-boot-starter-log4j2',
-            libraries.'spring-boot-starter-test'
+            libraries.'spring-boot-starter-actuator',
+            libraries.'spring-boot-starter-test',
+            libraries.'spring-cloud-config-starter-zookeeper-config',
     )
 
     /*//依赖model
@@ -54,5 +53,11 @@ dependencies {
         //移除spring boot 默认logger依赖
         all*.exclude module: 'spring-boot-starter-logging'
     }*/
+
+    testImplementation(
+            //test
+            //libraries.'junit',
+            libraries.'spring-boot-starter-test'
+    )
 }
 

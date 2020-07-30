@@ -48,12 +48,13 @@ configure(subprojects) { subProject ->
 
     //apply from: '${rootProject.projectDir}/dependency.gradle'
     apply from: rootProject.projectDir.absolutePath + '/dependency.gradle'
-    if (!excludeProjects.contains(name)) {//依赖模块不使用如下插件及依赖
-        //apply plugin: 'java'
+    //apply from: rootProject.rootDir.absolutePath + '/dependency.gradle'
+    if (!excludeProjects.contains(project.name)) {//依赖模块不使用如下插件及依赖
         apply plugin: 'io.spring.dependency-management'
         dependencyManagement {
             imports {
                 mavenBom libraries.'spring-cloud-dependencies'
+                //mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR6'
                 //下面这样定义会取不到springCloudVersion，需要明确指定版本号才行，网上大多都是下面这样配置，具体原因不明
                 //mavenBom 'org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}'
             }

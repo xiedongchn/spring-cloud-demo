@@ -23,6 +23,7 @@ dependencies {
 
     testImplementation(
             //test
-            libraries.'junit'
+            //libraries.'junit',
+            libraries.'spring-boot-starter-test'
     )
 }

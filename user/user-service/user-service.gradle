@@ -20,11 +20,7 @@ dependencies {
             //spring boot
             libraries.'spring-boot-starter-actuator',
             libraries.'spring-boot-starter-log4j2',
-    )
-
-    testImplementation(
-            //test
-            libraries.'junit'
+            libraries.'spring-boot-starter-test'
     )
 
     /*//依赖model

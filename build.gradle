@@ -6,7 +6,8 @@
 //具体看这里：https://stackoverflow.com/questions/26236308/how-to-apply-plugin-to-allprojects-with-new-gradle-plugins-mechanism
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.3.1.RELEASE' apply false
+    //id 'org.springframework.boot' version '2.3.1.RELEASE' apply false
+    //引入了io.spring.dependency-management，所有SpringCloud和SpringBoot管理的依赖包可以省略版本号
     id 'io.spring.dependency-management' version '1.0.9.RELEASE' apply false
 }
 
@@ -45,17 +46,23 @@ configure(subprojects) { subProject ->
         println project.name
     }
 
+    //apply from: '${rootProject.projectDir}/dependency.gradle'
     apply from: rootProject.projectDir.absolutePath + '/dependency.gradle'
     if (!excludeProjects.contains(name)) {//依赖模块不使用如下插件及依赖
         //apply plugin: 'java'
         apply plugin: 'io.spring.dependency-management'
         dependencyManagement {
             imports {
-                mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR6'
-                //下面这样定义会取不到springCloudVersion，需要明确指定版本号才行
+                mavenBom libraries.'spring-cloud-dependencies'
+                //下面这样定义会取不到springCloudVersion，需要明确指定版本号才行，网上大多都是下面这样配置，具体原因不明
                 //mavenBom 'org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}'
             }
         }
+    }
+
+    //公共依赖，所有项目都依赖junit
+    dependencies {
+        testImplementation(libraries.'junit')
     }
 
     //指定编译的目录

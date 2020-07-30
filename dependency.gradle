@@ -1,0 +1,76 @@
+//获取 dependency.gradle 依赖插件配置
+/*buildscript {
+    repositories {
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+    }
+}*/
+
+//定义阿里的仓库地址
+def aliPublicUrl = 'https://maven.aliyun.com/repository/public'//阿里central仓和jcenter仓的聚合仓
+def aliJCenterUrl = aliPublicUrl
+repositories {
+    /*google()
+    mavenLocal()
+    mavenCentral()*/
+    maven { url aliJCenterUrl }
+    removeMavenRepo()
+}
+
+ext {//依赖版本
+    springBootVersion = '2.2.6.RELEASE'
+    //springCloudVersion = 'Hoxton.SR6'
+    set('springCloudVersion', 'Hoxton.SR6')
+}
+
+//配置项目公共依赖，方便版本控制
+ext.libraries = [
+        //spring cloud
+        'spring-cloud-config-starter'                 : 'org.springframework.cloud:spring-cloud-config-server',
+        'spring-cloud-starter'                        : 'org.springframework.cloud:spring-cloud-starter',
+        'spring-cloud-starter-config'                 : 'org.springframework.cloud:spring-cloud-starter-config',
+        'spring-cloud-config-starter-zookeeper-config': 'org.springframework.cloud:spring-cloud-starter-zookeeper-config',
+        'spring-cloud-starter-eureka-server'          : 'org.springframework.cloud:spring-cloud-starter-eureka-server:1.4.7.RELEASE',
+        'spring-cloud-starter-netflix-eureka-client'  : 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.2.3.RELEASE',
+
+        //spring boot
+        'spring-boot-starter-actuator'                : 'org.springframework.boot:spring-boot-starter-actuator',
+        'spring-boot-starter-log4j2'                  : 'org.springframework.boot:spring-boot-starter-log4j2',
+
+        //test
+        'junit'                                       : 'junit:junit:4.12'
+]
+
+configurations {
+    // 用于上传自己项目的jar 包到中心 maven 库
+    //deployerJars
+
+    // 所有需要忽略的包定义在此
+    all*.exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    //移除spring boot 默认logger依赖
+    all*.exclude module: 'spring-boot-starter-logging'
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
+}
+
+def removeMavenRepo() {
+    repositories {
+        all { ArtifactRepository repo ->
+            println(repo.url.toString())
+            if (repo instanceof MavenArtifactRepository) {
+                def url = repo.url.toString()
+                if (url.startsWith('https://repo1.maven.org/maven2')) {
+                    project.logger.lifecycle 'Repository ${repo.url} replaced by $aliPublicUrl.'
+                    remove repo
+                }
+                if (url.startsWith('https://jcenter.bintray.com/')) {
+                    project.logger.lifecycle 'Repository ${repo.url} replaced by $aliJCenterUrl.'
+                    remove repo
+                }
+            }
+        }
+    }
+}

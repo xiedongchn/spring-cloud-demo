@@ -1,23 +1,14 @@
 //gradle编译时加上参数[--warning-mode all]，可查看配置文件中可能存在的问题以及可能在将来被废弃的语法，
 //例如gradle7.0中建议用implementation替代compile，用testImplementation替代testCompile
 
-/*
-buildscript {
-    repositories {
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
-    }
-}
-*/
-
+//由于根build.gradle的allprojects或subprojects中不能使用`plugins {}`，故在外部定义好需要使用的插件，
+//然后在allprojects或subprojects中apply应用到所有或按条件应用到部分子项目中
+//具体看这里：https://stackoverflow.com/questions/26236308/how-to-apply-plugin-to-allprojects-with-new-gradle-plugins-mechanism
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.3.1.RELEASE' apply false
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE' apply false
 }
-
-/*repositories {
-    mavenLocal()
-    mavenCentral()
-}*/
 
 //所有项目模块的通用配置
 allprojects {
@@ -32,29 +23,38 @@ allprojects {
     [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 }
 
-//容器模块名字
-def holderProjects = Arrays.asList('model')
-def gradleDir = "${rootProject.rootDir}/gradle"
+//排除模块名字
+def excludeProjects = Arrays.asList('user-api', 'order-api')
+//def gradleDir = '${rootProject.rootDir}/gradle'
 
 //子模块/项目的统一配置
 configure(subprojects) { subProject ->
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+    task wrapper(type: Wrapper) {
+        gradleVersion = '6.3'
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    test {
+        useJUnitPlatform()
     }
 
     task allTask {
         println project.name
     }
 
-    if(!holderProjects.contains(subProject.name)) {
-        ext {//依赖版本
-            springBootVersion = "2.2.6.RELEASE"
-        }
-        task wrapper(type: Wrapper) {
-            gradleVersion = '6.3'
+    apply from: rootProject.projectDir.absolutePath + '/dependency.gradle'
+    if (!excludeProjects.contains(name)) {//依赖模块不使用如下插件及依赖
+        //apply plugin: 'java'
+        apply plugin: 'io.spring.dependency-management'
+        dependencyManagement {
+            imports {
+                mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR6'
+                //下面这样定义会取不到springCloudVersion，需要明确指定版本号才行
+                //mavenBom 'org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}'
+            }
         }
     }
 
@@ -64,16 +64,16 @@ configure(subprojects) { subProject ->
             //直接将环境包目录下的文件打包到resources根目录下
             resources {
                 //所有的环境文件夹
-                String[] dirs = "dev,pro".split(",")
-                //String[] dirs = envDirs.split("," as Closure)
+                String[] dirs = 'dev,pro'.split(',')
+                //String[] dirs = envDirs.split(',' as Closure)
 
-                srcDir "src/main/resources/${env}"
-                println "Current environment [${env}] by ${project.name}. "
+                srcDir 'src/main/resources/${env}'
+                println 'Current environment [${env}] by ${project.name}. '
 
                 sourceSets.main.resources.srcDirs.each {
                     it.listFiles().each {
                         if (it.isDirectory() && dirs.contains(it.name)) {
-                            exclude "${it.name}"
+                            exclude '${it.name}'
                         }
                     }
                 }

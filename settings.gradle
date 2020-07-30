@@ -1,13 +1,19 @@
 rootProject.name = "spring-cloud-demo"
-include("web", "model", "config-server")
+include("config", "order-api", "order-provider", "user-api", "user-service")
+project(":order-api").projectDir = file("order/order-api")
+project(":order-provider").projectDir = file("order/order-provider")
+project(":user-api").projectDir = file("user/user-api")
+project(":user-service").projectDir = file("user/user-service")
 
 if (!JavaVersion.current().java8Compatible) {
     throw new GradleException("Gradle must be run with Java 8")
 }
 
+assertProjectBuildFile(rootProject.children)
+
 /**
  * 递归检查build.gradle文件是否根据模块名生成
- * 像是 Gradle 他默认的构建文件名就叫做 build.gradle, 可以等同于 Maven 的 pom.xml。 所有的项目的配置都叫这个名字， 着实不好区分。
+ * 像是 Gradle 他默认的构建文件名就叫做 order-server.gradle, 可以等同于 Maven 的 pom.xml。 所有的项目的配置都叫这个名字， 着实不好区分。
  * 所以我这里就以 项目名 来作为构建配置文件的文件名， 然后在根节点的setting.gradle中对每个子项目都作出限制, 使其构建名必须符合语义。
  * 比如 service-system 项目, 他的配置文件就会叫做 service-system.gradle 。 这样子在修改、查看配置文件时， 会比清一色的 build.gradle 好看很多。
  *
@@ -31,5 +37,3 @@ def assertProjectBuildFile(Set<ProjectDescriptor> dirs) {
         }
     }
 }
-
-assertProjectBuildFile(rootProject.children)

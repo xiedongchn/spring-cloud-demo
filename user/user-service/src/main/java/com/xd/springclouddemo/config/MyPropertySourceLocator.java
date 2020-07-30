@@ -22,7 +22,6 @@ public class MyPropertySourceLocator implements PropertySourceLocator {
     public PropertySource<?> locate(Environment environment) {
         Map<String, Object> source = new HashMap<>();
         source.put("server.port", "9090");
-        MapPropertySource mapPropertySource = new MapPropertySource("my-property-source", source);
-        return mapPropertySource;
+        return new MapPropertySource("my-property-source", source);
     }
 }

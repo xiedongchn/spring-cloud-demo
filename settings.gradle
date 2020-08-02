@@ -1,5 +1,5 @@
 rootProject.name = "spring-cloud-demo"
-include("config", "order-api", "order-provider", "user-api", "user-service")
+include("common", "config", "order-api", "order-provider", "user-api", "user-service")
 project(":order-api").projectDir = file("order/order-api")
 project(":order-provider").projectDir = file("order/order-provider")
 project(":user-api").projectDir = file("user/user-api")

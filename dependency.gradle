@@ -22,7 +22,7 @@ ext.versions = [//依赖版本
                 springBootVersion  : '2.2.6.RELEASE',
                 eurekaServerVersion: '1.4.7.RELEASE',
                 eurekaClientVersion: '2.2.3.RELEASE',
-                springCloudVersion: 'Hoxton.SR6'
+                springCloudVersion : 'Hoxton.SR6'
 ]
 
 //配置项目公共依赖，方便版本控制
@@ -35,11 +35,16 @@ ext.libraries = [
         'spring-cloud-starter-eureka-server'          : 'org.springframework.cloud:spring-cloud-starter-eureka-server:1.4.7.RELEASE',
         'spring-cloud-starter-netflix-eureka-client'  : 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.2.3.RELEASE',
         'spring-cloud-dependencies'                   : 'org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR6',
+        'spring-cloud-config-monitor'                 : 'org.springframework.cloud:spring-cloud-config-monitor',
+        'spring-cloud-starter-bus-kafka'              : 'org.springframework.cloud:spring-cloud-starter-bus-kafka',
 
         //spring boot
         'spring-boot-starter-test'                    : 'org.springframework.boot:spring-boot-starter-test',
         'spring-boot-starter-actuator'                : 'org.springframework.boot:spring-boot-starter-actuator',
         'spring-boot-starter-log4j2'                  : 'org.springframework.boot:spring-boot-starter-log4j2',
+        'org.springframework.boot'                    : 'spring-boot-starter-thymeleaf',
+        'mysql'                                       : 'mysql-connector-java:8.0.19',
+        'com.alibaba'                                 : 'druid-spring-boot-starter',
 
         //test
         'junit'                                       : 'junit:junit:4.12'

@@ -11,6 +11,7 @@ dependencyManagement {
 
 dependencies {
     implementation(
+            project(':common'),
             project(':user-api'),
             libraries.'spring-cloud-config-starter',
             libraries.'spring-cloud-starter',
@@ -20,6 +21,7 @@ dependencies {
             libraries.'spring-boot-starter-actuator',
             libraries.'spring-boot-starter-test',
             libraries.'spring-cloud-config-starter-zookeeper-config',
+            libraries.'spring-cloud-starter-bus-kafka',
     )
 
     /*//依赖model

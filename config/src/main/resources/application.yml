@@ -1,0 +1,31 @@
+server:
+  port: 9091
+
+spring:
+  application:
+    name: config-server-9091
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/gupao_mic/spring-cloud-config-server.git
+          username: 16607491862
+          password: "!q@w#e$r123"
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
+      trace:
+        enabled: true
+  kafka:
+    bootstrap-servers: localhost:7777
+    consumer:
+      group-id: config-server
+eureka:
+  client:
+    service-url: http://localhost:9090/eureka
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

@@ -1,4 +1,4 @@
-package com.xd.springclouddemo.Controller;
+package com.xd.springclouddemo.controller;
 
 import com.xd.springclouddemo.domain.User;
 import org.springframework.web.bind.annotation.RequestMapping;

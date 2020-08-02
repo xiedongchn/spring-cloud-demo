@@ -1,0 +1,10 @@
+dependencies {
+    implementation(
+            libraries.'spring-cloud-starter',
+            libraries.'spring-boot-starter-actuator',
+            libraries.'spring-cloud-starter-netflix-eureka-server',
+            //spring boot
+            libraries.'spring-boot-starter-log4j2',
+            libraries.'spring-boot-starter-test'
+    )
+}

@@ -1,0 +1,13 @@
+#bootstrap文件优于application文件加载
+server:
+  port: 8082
+
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: user-service-${server.port}
+eureka:
+  client:
+    service-url: http://localhost:9090/eureka

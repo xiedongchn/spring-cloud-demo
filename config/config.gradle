@@ -1,21 +1,11 @@
-/*plugins {
-    id 'org.springframework.boot' version '2.3.1.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-}
-
-dependencyManagement {
-    imports {
-        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}'
-    }
-}*/
-
 dependencies {
     implementation(
             libraries.'spring-cloud-starter',
             libraries.'spring-cloud-config-starter',
             libraries.'spring-cloud-starter-config',
             libraries.'spring-cloud-config-starter-zookeeper-config',
-            libraries.'spring-cloud-starter-eureka-server',
+            libraries.'spring-cloud-starter-netflix-eureka-client',
+            libraries.'spring-cloud-starter-bus-kafka',
             //spring boot
             libraries.'spring-boot-starter-actuator',
             libraries.'spring-boot-starter-log4j2',

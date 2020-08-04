@@ -1,13 +1,11 @@
 #bootstrap文件优于application文件加载
-server:
-  port: 8082
-
 spring:
   cloud:
     config:
       discovery:
         enabled: true
-        service-id: user-service-${server.port}
+        service-id: cloud-config-server-9091
 eureka:
   client:
-    service-url: http://localhost:9090/eureka
+    service-url:
+      defaultZone: http://localhost:9090/eureka

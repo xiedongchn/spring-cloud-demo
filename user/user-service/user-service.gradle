@@ -13,15 +13,15 @@ dependencies {
     implementation(
             project(':common'),
             project(':user-api'),
-            libraries.'spring-cloud-config-starter',
-            libraries.'spring-cloud-starter',
+            libraries.'spring-boot-starter-web',
             libraries.'spring-cloud-starter-config',
             libraries.'spring-cloud-starter-netflix-eureka-client',
+            libraries.'spring-cloud-config-client',
             libraries.'spring-boot-starter-log4j2',
             libraries.'spring-boot-starter-actuator',
-            libraries.'spring-boot-starter-test',
-            libraries.'spring-cloud-config-starter-zookeeper-config',
             libraries.'spring-cloud-starter-bus-kafka',
+            libraries.'spring-boot-starter-test',
+            //libraries.'spring-cloud-starter',
     )
 
     /*//依赖model

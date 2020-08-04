@@ -4,13 +4,20 @@ server:
 spring:
   application:
     name: cloud-config-server-${server.port}
+#  cloud:
+#    config:
+#      server:
+#        git:
+#          uri: https://gitee.com/gupao_mic/spring-cloud-config-server.git
+#          username: 16607491862
+#          password: "!q@w#e$r123"
+  profiles:
+    active: native #使用本地配置
   cloud:
     config:
       server:
-        git:
-          uri: https://gitee.com/gupao_mic/spring-cloud-config-server.git
-          username: 16607491862
-          password: "!q@w#e$r123"
+        native:
+          search-locations: classpath:/config-file
     bus:
       enabled: true
       trace:

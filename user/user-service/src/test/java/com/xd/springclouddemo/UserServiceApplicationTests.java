@@ -10,7 +10,7 @@ import java.time.temporal.ChronoUnit;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class WebApplicationTests {
+public class UserServiceApplicationTests {
 
     @Test
     public void contextLoads() {

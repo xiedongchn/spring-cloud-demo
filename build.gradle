@@ -67,7 +67,7 @@ configure(subprojects) { subProject ->
     }
 
     //指定编译的目录
-    sourceSets {
+    /*sourceSets {
         main {
             //直接将环境包目录下的文件打包到resources根目录下
             resources {
@@ -87,5 +87,5 @@ configure(subprojects) { subProject ->
                 }
             }
         }
-    }
+    }*/
 }

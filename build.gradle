@@ -30,22 +30,6 @@ def excludeProjects = Arrays.asList('user-api', 'order-api')
 
 //子模块/项目的统一配置
 configure(subprojects) { subProject ->
-    task wrapper(type: Wrapper) {
-        gradleVersion = '6.3'
-    }
-
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
-    }
-
-    test {
-        useJUnitPlatform()
-    }
-
-    task allTask {
-        println project.name
-    }
-
     //apply from: '${rootProject.projectDir}/dependency.gradle'
     apply from: rootProject.projectDir.absolutePath + '/dependency.gradle'
     //apply from: rootProject.rootDir.absolutePath + '/dependency.gradle'
@@ -65,6 +49,25 @@ configure(subprojects) { subProject ->
     dependencies {
         testImplementation(libraries.'junit')
     }
+    task wrapper(type: Wrapper) {
+        gradleVersion = '6.3'
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    task allTask {
+        println project.name
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    /*tasks.test {
+        useJUnitPlatform()
+    }*/
 
     //指定编译的目录
     /*sourceSets {

@@ -6,6 +6,7 @@ dependencies {
             libraries.'spring-cloud-config-starter-zookeeper-config',
             libraries.'spring-cloud-starter-netflix-eureka-client',
             libraries.'spring-cloud-starter-bus-kafka',
+            libraries.'spring-cloud-config-monitor',
             //spring boot
             libraries.'spring-boot-starter-actuator',
             libraries.'spring-boot-starter-log4j2',

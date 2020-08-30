@@ -1,33 +1,19 @@
-package com.xd.springclouddemo.controller;
+package com.xd.springclouddemo.orderserver.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Description
- *
- * @author xd
- * Created on 八月/3 00:11
- */
 @RefreshScope
 @RestController
-@RequestMapping("/config")
-public class ConfigController {
+@RequestMapping(path = "/order")
+public class OrderController {
     @Value("${env}")
     private String env;
 
-    @Value("${port}")
-    private String port;
-
-    @RequestMapping("/getEnv")
+    @RequestMapping(path = "/getEnv")
     public String getEnv() {
         return env;
-    }
-
-    @RequestMapping("/getPort")
-    public String getPort() {
-        return port;
     }
 }

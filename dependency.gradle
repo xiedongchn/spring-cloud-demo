@@ -55,9 +55,10 @@ configurations {
     //deployerJars
 
     // 所有需要忽略的包定义在此
-    all*.exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     //移除spring boot 默认logger依赖
     all*.exclude module: 'spring-boot-starter-logging'
+    //不能忽略junit-vintage-engine，会导致gradle执行测试类时报错：No tests found for given includes
+    //all*.exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 }
 
 def removeMavenRepo() {
